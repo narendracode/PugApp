@@ -1,0 +1,12 @@
+//- index.pug
+extends layouts/layout.pug
+
+block title
+  title #{title}
+
+block content
+  .container
+    h1 #{title}
+    p Welcome to #{title}
+    #user
+      p user role #{role}
