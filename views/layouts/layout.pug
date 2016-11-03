@@ -1,7 +1,8 @@
 doctype html
 html
   include ../partials/head.pug
-  body
+  body(class='corporate')
+    include ../partials/topbar.pug
+    include ../partials/default_topmenubar.pug
     block content
-    //block footer
     include ../partials/footer.pug
