@@ -10,7 +10,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
-  res.render('login', { title: 'Express', user:'Normal User',role:'User' });
+  var breadcrumb =  [
+                                     { page: 'Home'},
+                                     { page: 'Login'}
+                    ];
+  res.render('login', { 
+                      title: 'Express'
+                      , user:'Normal User'
+                      ,role:'User' 
+                      ,data: breadcrumb
+                      });
 });
 
 router.get('/register', function(req, res, next) {
