@@ -9,6 +9,14 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express', user:'Normal User',role:'User' });
 });
 
+router.get('/login', function(req, res, next) {
+  res.render('login', { title: 'Express', user:'Normal User',role:'User' });
+});
+
+router.get('/register', function(req, res, next) {
+  res.render('register', { title: 'Express', user:'Normal User',role:'User' });
+});
+
 /* GET home page. */
 router.get('/admin', function(req, res, next) {
   res.render('index', { title: 'Express', user:'Admin User',role:'Admin' });
