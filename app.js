@@ -25,7 +25,7 @@ app.use(cookieParser(secretKey));
 app.use(cookieEncrypter(secretKey));
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use('/assets',express.static(path.join(__dirname, 'public/stylesheets')));
+app.use('/pages',express.static(path.join(__dirname, 'public/pages')));
 
 
 require('./config/routes')(app);

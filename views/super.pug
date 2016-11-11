@@ -1,0 +1,70 @@
+//- index.pug
+extends layouts/layout.pug
+
+block title
+  title #{title}
+
+block content
+  .main
+    .container
+      include partials/breadcrumb.pug
+      div(class="row margin-bottom-40")
+        .col-md-12
+          h1 Users
+          .content-page
+           form(action"#" class="content-search-view2")
+             .input-group
+               input(type="text",class="form-control",placeholder="search...")
+               span(class="input-group-btn")
+                 button(type="submit",class="btn btn-primary") Search
+           .search-result-item
+             form(action="#",method="POST")
+               h4
+                 a(href="javascript:;") User Name 1
+                 p role - admin
+                 p email - test@abc.com
+                 p
+                   span(style="margin-right:3px;")
+                     button(type="submit",class="btn btn-info") Approve &nbsp;
+                   span
+                     button(type="submit",class="btn btn-danger") Reject  
+           .search-result-item
+             form(action="#",method="POST")
+               h4
+                 a(href="javascript:;") User Name 1
+                 p role - admin
+                 p email - test@abc.com
+                 p
+                   span(style="margin-right:3px;")
+                     button(type="submit",class="btn btn-info") Approve &nbsp;
+                   span
+                     button(type="submit",class="btn btn-danger") Reject  
+           .search-result-item
+             form(action="#",method="POST")
+               h4
+                 a(href="javascript:;") User Name 1
+                 p role - admin
+                 p email - test@abc.com
+                 p
+                   span(style="margin-right:3px;")
+                     button(type="submit",class="btn btn-info") Approve &nbsp;
+                   span
+                     button(type="submit",class="btn btn-danger") Reject  
+           .row
+             div(class="col-md-4 col-sm-4 items-info") Items 1 to 9 of 10 total
+             div(class="col-md-8 col-sm-8")
+               ul(class="pagination pull-right")
+                 li
+                   a(href="javascript:;") «
+                 li
+                   a(href="javascript:;") 1
+                 li
+                   span 2
+                 li
+                   a(href="javascript:;") 3
+                 li
+                   a(href="javascript:;") 4
+                 li
+                   a(href="javascript:;") 5
+                 li
+                   a(href="javascript:;") »
