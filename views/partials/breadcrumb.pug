@@ -1,7 +1,7 @@
 ul(class="breadcrumb") 
-  each item,index in data
-    li(class=(index==data.length-1 ? 'active' : ''))
-      if index!=data.length-1
+  each item,index in breadcrumb
+    li(class=(index==breadcrumb.length-1 ? 'active' : ''))
+      if index!=breadcrumb.length-1
         a(href=item.link) 
           =item.page
       else

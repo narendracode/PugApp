@@ -1,12 +1,74 @@
 var express = require('express');
 var router = express.Router();
 var constants = require('../constants.js');
+
+var menu = [
+  {
+    menu: {name:'Home',link:'#', type:'normal'}
+    ,submenu: [
+      {menu: {name:'Menu1',link:'/'}}
+      ,{menu: {name:'Menu1',link:'/'}}
+      ,{menu: {name:'Menu1',link:'/'}}
+    ]
+  },{
+    menu: { name:'Home2',link:'#', type:'normal'}
+    ,submenu: [
+      {menu: {name:'Menu1',link:'/'}}
+      ,{menu: {name:'Menu1',link:'/'}}
+      ,{menu: {name:'Menu1',link:'/'}}
+    ]
+  },{
+    menu: { name: 'Menu3',link:'#',type:'mega'}
+    ,categories: [
+      {
+        category: 'Menu',
+        submenu: [
+      {menu: {name:'Menu1',link:'/'}}
+      ,{menu: {name:'Menu1',link:'/'}}
+      ,{menu: {name:'Menu1',link:'/'}}
+        ]
+
+      }
+      ,{
+        category: 'Menu2',
+        submenu: [
+      {menu: {name:'Menu1',link:'/'}}
+      ,{menu: {name:'Menu1',link:'/'}}
+      ,{menu: {name:'Menu1',link:'/'}}
+        ]
+
+      }
+      ,{
+        category: 'Menu3',
+        submenu: [
+      {menu: {name:'Menu1',link:'/'}}
+      ,{menu: {name:'Menu1',link:'/'}}
+      ,{menu: {name:'Menu1',link:'/'}}
+        ]
+
+      }
+
+    ]
+  }
+];
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	//console.log("Cookies : "+JSON.stringify(req.cookies));
   //res.cookie('cookieName', 'cookieValue')
+    var breadcrumb =  [
+                                     { page: 'Home',link: "/"}
+                                     
+                    ];
   res.clearCookie('cookieName');
-  res.render('index', { title: 'Express', user:'Normal User',role:'User' });
+  res.render('index', { 
+    title: 'Express'
+                      , user:'Normal User'
+                      ,role:'User' 
+                      ,breadcrumb: breadcrumb
+                      ,menu: menu
+  });
 });
 
 router.get('/login', function(req, res, next) {
@@ -18,7 +80,8 @@ router.get('/login', function(req, res, next) {
                       title: 'Express'
                       , user:'Normal User'
                       ,role:'User' 
-                      ,data: breadcrumb
+                      ,breadcrumb: breadcrumb
+                      ,menu: menu
                       });
 });
 
@@ -31,13 +94,20 @@ router.get('/register', function(req, res, next) {
                           title: 'Express'
                           ,user:'Normal User'
                           ,role:'User' 
-                          ,data: breadcrumb
+                          ,breadcrumb: breadcrumb
+                          ,menu: menu
                         });
 });
 
 /* GET home page. */
 router.get('/admin', function(req, res, next) {
-  res.render('index', { title: 'Express', user:'Admin User',role:'Admin' });
+  res.render('index', { 
+                          title: 'Express'
+                          ,user:'Normal User'
+                          ,role:'User' 
+                          ,breadcrumb: breadcrumb
+                          ,menu: menu
+                        });
 });
 
 
