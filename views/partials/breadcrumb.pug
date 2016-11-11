@@ -1,3 +1,8 @@
 ul(class="breadcrumb") 
-  each item in data
-    li=item.page
+  each item,index in data
+    li(class=(index==data.length-1 ? 'active' : ''))
+      if index!=data.length-1
+        a(href=item.link) 
+          =item.page
+      else
+         =item.page

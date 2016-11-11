@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/login', function(req, res, next) {
   var breadcrumb =  [
-                                     { page: 'Home'},
+                                     { page: 'Home',link: "/"},
                                      { page: 'Login'}
                     ];
   res.render('login', { 
@@ -23,7 +23,16 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/register', function(req, res, next) {
-  res.render('register', { title: 'Express', user:'Normal User',role:'User' });
+    var breadcrumb =  [
+                                     { page: 'Home',link: "/"},
+                                     { page: 'Register'}
+                    ];
+  res.render('register', { 
+                          title: 'Express'
+                          ,user:'Normal User'
+                          ,role:'User' 
+                          ,data: breadcrumb
+                        });
 });
 
 /* GET home page. */
