@@ -139,5 +139,7 @@ router.get('/getcookies', function(req, res) {
 
 });
 
+router.get('/logout',authCtrl.logout);
+
 
 module.exports = router;

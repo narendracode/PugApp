@@ -96,19 +96,51 @@ var menu = userMenu.get(false);
                       });
           }
            // return res.json(user);
-           var menu = userMenu.get(true);
-  var breadcrumb =  [
+
+  const cookieParams = {
+    httpOnly: true,
+    signed: true
+  };
+ 
+ console.log("User login : "+JSON.stringify(user));
+  res.cookie(constants.get('login'), user.user, cookieParams);
+    var menu = userMenu.get(true);
+    var breadcrumb =  [
                                      { page: 'Home',link: "/"}
-                    ];
+                      ];
   return res.render('index', { 
                       title: 'Welcome'
-                      ,user: { loggedin: true}
+                      ,user: {
+                         loggedin: true,
+                          name: user.data.user.name,
+                          email: user.data.user.email
+                        }
                       ,role:'User'
                       ,breadcrumb: breadcrumb
                       ,menu: menu
                       });
         }
     })(req, res, next);
+};
+
+
+exports.logout = function(req,res,next){
+  res.clearCookie(constants.get('login'));
+  var menu = userMenu.get(false);
+        
+            var breadcrumb =  [
+                                     { page: 'Home',link: "/"},
+                                     { page: 'Login'}
+                    ];
+         
+            return res.render('login', { 
+                      title: 'Login'
+                      ,user: { loggedin: false}
+                      ,role:'User' 
+                      ,info:'You are successfully logged out.'
+                      ,breadcrumb: breadcrumb
+                      ,menu: menu
+                      });
 };
 
 exports.lockUnlockUser = function(req,res,next){

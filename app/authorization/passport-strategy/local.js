@@ -118,7 +118,7 @@ exports.loginStrategy = new LocalStrategy({
                         			,data: {
                         				msg: {}
                         				,user: {
-                        					name: user.name
+                        					name: user.username
                         					,role: user.role
                         					,email: user.local.email
                         				}
