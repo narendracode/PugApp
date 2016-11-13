@@ -85,6 +85,38 @@ router.get('/login', function(req, res, next) {
                       });
 });
 
+
+router.get('/faq', function(req, res, next) {
+  var breadcrumb =  [
+                                     { page: 'Home',link: "/"},
+                                     { page: 'Frequently Asked Questions'}
+                    ];
+  res.render('faq', { 
+                      title: 'Express'
+                      , user:'Normal User'
+                      ,role:'User' 
+                      ,breadcrumb: breadcrumb
+                      ,menu: menu
+                      });
+});
+
+
+router.get('/forgot', function(req, res, next) {
+  var breadcrumb =  [
+                                     { page: 'Home',link: "/"},
+                                     { page: 'Forgot Your Password??'}
+                    ];
+  res.render('forgot', { 
+                      title: 'Express'
+                      , user:'Normal User'
+                      ,role:'User' 
+                      ,breadcrumb: breadcrumb
+                      ,menu: menu
+                      });
+});
+
+
+
 router.get('/register', function(req, res, next) {
     var breadcrumb =  [
                                      { page: 'Home',link: "/"},

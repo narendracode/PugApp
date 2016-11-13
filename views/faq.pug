@@ -1,0 +1,76 @@
+//- faq.pug
+extends layouts/layout.pug
+
+block title
+  title #{title}
+
+block content
+  .main
+    .container
+      include partials/breadcrumb.pug
+      div(class="row margin-bottom-40")
+        div(class="col-md-12 col-sm-12")
+          h1 Frequently Asked Questions
+          .content-page
+            .row
+              div(class="col-md-3 col-sm-3")
+                ul(class="tabbable faq-tabbable")
+                  li(class="active")
+                    a(href="#tab_1",data-toggle="tab")
+                      General Questions
+                  li(class="")
+                    a(href="#tab_2",data-toggle="tab") Membership
+                  li(class="")
+                    a(href="#tab_3",data-toggle="tab") Payment
+              div(class="col-md-9 col-sm-9")
+                div(class="tab-content",style="padding:0; background: #fff;")
+                  div(class="tab-pane active",id="tab_1")
+                    div(class="panel-group",id="accordion1")
+                      div(class="panel panel-default")
+                        .panel-heading
+                          h4(class="panel-title")
+                            a(href="#accordion1_1",data-parent="#accordion1",data-toggle="collapse",class="accordion-toggle") General Question1?
+                        div(class="panel-collapse collapse in",id="accordion1_1")
+                          .panel-body General Answer 1
+                      div(class="panel panel-default")
+                        .panel-heading
+                          h4(class="panel-title")
+                            a(href="#accordion1_2",data-parent="#accordion1", data-toggle="collapse",class="accordion-toggle collapsed") General Question 2?
+                        div(class="panel-collapse collapse",id="accordion1_2")
+                          .panel-body  General Answer 2.
+                      div(class="panel panel-success")
+                        .panel-heading
+                          h4(class="panel-title")
+                          a(href="#accordion1_3",data-parent="#accordion1",data-toggle="collapse",class="accordion-toggle collapsed") General Question 3?
+                        div(class="panel-collapse collapse",id="accordion1_3")
+                          .panel-body  General Answer 3.
+                  div(class="tab-pane",id="tab_2")
+                    div(class="panel-group",id="accordion2")
+                      div(class="panel panel-warning")
+                        div(class="panel-heading")
+                          h4(class="panel-title")
+                            a(href="#accordion2_1",data-parent="#accordion2",data-toggle="collapse",class="accordion-toggle") Membership question 1?
+                        div(class="panel-collapse collapse  in" id="accordion2_1")
+                          .panel-body
+                            Membership Answer1
+                      div(class="panel panel-danger")
+                        div(class="panel-heading")
+                          h4(class="panel-title")
+                            a(href="#accordion2_2",data-parent="#accordion2",data-toggle="collapse",class="accordion-toggle")  Membership Question 2?
+                        div(class="panel-collapse collapse",id="accordion2_2")
+                          .panel-body  Membership Answer 2.
+                  div(class="tab-pane",id="tab_3")
+                    div(class="panel-group",id="accordion3")
+                      div(class="panel panel-default")
+                        div(class="panel-heading")
+                          h4(class="panel-title")
+                            a(href="#accordion3_1",data-parent="#accordion3",data-toggle="collapse",class="accordion-toggle") Payment question 1?
+                        div(class="panel-collapse collapse  in" id="accordion3_1")
+                          .panel-body
+                            Payment Answer1
+                      div(class="panel panel-default")
+                        div(class="panel-heading")
+                          h4(class="panel-title")
+                            a(href="#accordion3_2",data-parent="#accordion3",data-toggle="collapse",class="accordion-toggle")  Payment Question 2?
+                        div(class="panel-collapse collapse",id="accordion3_2")
+                          .panel-body  Payment Answer 2.

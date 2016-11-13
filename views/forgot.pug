@@ -1,0 +1,26 @@
+//- index.pug
+extends layouts/layout.pug
+
+block title
+  title #{title}
+
+block content
+  .main
+    .container
+      include partials/breadcrumb.pug
+      div(class="row margin-bottom-40")
+        include partials/sidebar.pug
+        div(class="col-md-9 col-sm-9")
+          h1 Forgot Your Password
+          div(class="content-form-page")
+            .row
+              div(class="col-md-7 col-sm-7")
+                form(class="form-horizontal form-without-legend",role="form",method="POST",action="/forgot")
+                  div(class="form-group")
+                    label(for="email",class="col-lg-4 control-label") Email
+                      span(class="require") *
+                    div(class="col-lg-8")
+                      input(type="text",class="form-control",id="email")
+                  .row
+                    div(class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20")
+                      button(type="submit",class="btn btn-primary") Send
