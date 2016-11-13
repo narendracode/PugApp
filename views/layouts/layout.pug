@@ -2,7 +2,10 @@ doctype html
 html
   include ../partials/head.pug
   body(class='corporate')
-    include ../partials/topbar.pug
+    if user.loggedin==true
+      include ../partials/loggedin_topbar.pug
+    else
+      include ../partials/topbar.pug
     include ../partials/default_topmenubar.pug
     //include ../partials/hero_carousel.pug
     //include ../partials/image_holder.pug

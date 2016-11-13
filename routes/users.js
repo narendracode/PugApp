@@ -1,54 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var menu = [
-	{
-		menu: {name:'Home',link:'#', type:'normal'}
-		,submenu: [
-			{menu: {name:'Menu1',link:'/'}}
-			,{menu: {name:'Menu1',link:'/'}}
-			,{menu: {name:'Menu1',link:'/'}}
-		]
-	},{
-		menu: { name:'Home2',link:'#', type:'normal'}
-		,submenu: [
-			{menu: {name:'Menu1',link:'/'}}
-			,{menu: {name:'Menu1',link:'/'}}
-			,{menu: {name:'Menu1',link:'/'}}
-		]
-	},{
-		menu: { name: 'Menu3',link:'#',type:'mega'}
-		,categories: [
-			{
-				category: 'Menu',
-				submenu: [
-			{menu: {name:'Menu1',link:'/'}}
-			,{menu: {name:'Menu1',link:'/'}}
-			,{menu: {name:'Menu1',link:'/'}}
-				]
+var userMenu = require('../usermenu.js');
 
-			}
-			,{
-				category: 'Menu2',
-				submenu: [
-			{menu: {name:'Menu1',link:'/'}}
-			,{menu: {name:'Menu1',link:'/'}}
-			,{menu: {name:'Menu1',link:'/'}}
-				]
-
-			}
-			,{
-				category: 'Menu3',
-				submenu: [
-			{menu: {name:'Menu1',link:'/'}}
-			,{menu: {name:'Menu1',link:'/'}}
-			,{menu: {name:'Menu1',link:'/'}}
-				]
-
-			}
-
-		]
-	}
-];
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -56,6 +9,7 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/super', function(req, res, next) {
+	var menu = userMenu.get(true);
   var breadcrumb =  [
                                      { page: 'Home',link: "/"},
                                      { page: 'Users'}
@@ -63,10 +17,7 @@ router.get('/super', function(req, res, next) {
 
   res.render('super', {
                       title: 'Super User'
-                      ,user: {
-                      	name: 'Super User'
-                      	,role: 'super'
-                      }
+                      ,user: { loggedin: true}
                       ,breadcrumb: breadcrumb
                       ,menu: menu
                       });

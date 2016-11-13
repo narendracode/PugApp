@@ -1,70 +1,22 @@
 var express = require('express');
 var router = express.Router();
 var constants = require('../constants.js');
-
-var menu = [
-  {
-    menu: {name:'Home',link:'#', type:'normal'}
-    ,submenu: [
-      {menu: {name:'Menu1',link:'/'}}
-      ,{menu: {name:'Menu1',link:'/'}}
-      ,{menu: {name:'Menu1',link:'/'}}
-    ]
-  },{
-    menu: { name:'Home2',link:'#', type:'normal'}
-    ,submenu: [
-      {menu: {name:'Menu1',link:'/'}}
-      ,{menu: {name:'Menu1',link:'/'}}
-      ,{menu: {name:'Menu1',link:'/'}}
-    ]
-  },{
-    menu: { name: 'Menu3',link:'#',type:'mega'}
-    ,categories: [
-      {
-        category: 'Menu',
-        submenu: [
-      {menu: {name:'Menu1',link:'/'}}
-      ,{menu: {name:'Menu1',link:'/'}}
-      ,{menu: {name:'Menu1',link:'/'}}
-        ]
-
-      }
-      ,{
-        category: 'Menu2',
-        submenu: [
-      {menu: {name:'Menu1',link:'/'}}
-      ,{menu: {name:'Menu1',link:'/'}}
-      ,{menu: {name:'Menu1',link:'/'}}
-        ]
-
-      }
-      ,{
-        category: 'Menu3',
-        submenu: [
-      {menu: {name:'Menu1',link:'/'}}
-      ,{menu: {name:'Menu1',link:'/'}}
-      ,{menu: {name:'Menu1',link:'/'}}
-        ]
-
-      }
-
-    ]
-  }
-];
+var userMenu = require('../usermenu.js');
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	//console.log("Cookies : "+JSON.stringify(req.cookies));
   //res.cookie('cookieName', 'cookieValue')
+var menu = userMenu.get(true);
     var breadcrumb =  [
                                      { page: 'Home',link: "/"}
                                      
                     ];
   res.clearCookie('cookieName');
   res.render('index', { 
-    title: 'Express'
-                      , user:'Normal User'
+                      title: 'Express'
+                      ,user: { loggedin: true}
                       ,role:'User' 
                       ,breadcrumb: breadcrumb
                       ,menu: menu
@@ -72,13 +24,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
+var menu = userMenu.get(false);
   var breadcrumb =  [
                                      { page: 'Home',link: "/"},
                                      { page: 'Login'}
                     ];
   res.render('login', { 
                       title: 'Express'
-                      , user:'Normal User'
+                      ,user: { loggedin: false}
                       ,role:'User' 
                       ,breadcrumb: breadcrumb
                       ,menu: menu
@@ -87,13 +40,14 @@ router.get('/login', function(req, res, next) {
 
 
 router.get('/faq', function(req, res, next) {
+  var menu = userMenu.get(false);
   var breadcrumb =  [
                                      { page: 'Home',link: "/"},
                                      { page: 'Frequently Asked Questions'}
                     ];
   res.render('faq', { 
                       title: 'Express'
-                      , user:'Normal User'
+                      ,user: { loggedin: false}
                       ,role:'User' 
                       ,breadcrumb: breadcrumb
                       ,menu: menu
@@ -102,13 +56,14 @@ router.get('/faq', function(req, res, next) {
 
 
 router.get('/forgot', function(req, res, next) {
+  var menu = userMenu.get(false);
   var breadcrumb =  [
                                      { page: 'Home',link: "/"},
                                      { page: 'Forgot Your Password??'}
                     ];
   res.render('forgot', { 
                       title: 'Express'
-                      , user:'Normal User'
+                      ,user: { loggedin: false}
                       ,role:'User' 
                       ,breadcrumb: breadcrumb
                       ,menu: menu
@@ -118,13 +73,14 @@ router.get('/forgot', function(req, res, next) {
 
 
 router.get('/register', function(req, res, next) {
+    var menu = userMenu.get(false);
     var breadcrumb =  [
                                      { page: 'Home',link: "/"},
                                      { page: 'Register'}
                     ];
   res.render('register', { 
                           title: 'Express'
-                          ,user:'Normal User'
+                          ,user: { loggedin: false}
                           ,role:'User' 
                           ,breadcrumb: breadcrumb
                           ,menu: menu
@@ -133,9 +89,10 @@ router.get('/register', function(req, res, next) {
 
 /* GET home page. */
 router.get('/admin', function(req, res, next) {
+  var menu = userMenu.get(false);
   res.render('index', { 
                           title: 'Express'
-                          ,user:'Normal User'
+                          ,user: { loggedin: false}
                           ,role:'User' 
                           ,breadcrumb: breadcrumb
                           ,menu: menu
