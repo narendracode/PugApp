@@ -9,7 +9,7 @@ var authCtrl = require('../app/authorization/controllers/AuthController');
 router.get('/', function(req, res, next) {
 	//console.log("Cookies : "+JSON.stringify(req.cookies));
   //res.cookie('cookieName', 'cookieValue')
-var menu = userMenu.get(true);
+var menu = userMenu.get(false);
     var breadcrumb =  [
                                      { page: 'Home',link: "/"}
                                      
@@ -17,7 +17,7 @@ var menu = userMenu.get(true);
   res.clearCookie('cookieName');
   res.render('index', { 
                       title: 'Express'
-                      ,user: { loggedin: true}
+                      ,user: { loggedin: false}
                       ,role:'User' 
                       ,breadcrumb: breadcrumb
                       ,menu: menu
