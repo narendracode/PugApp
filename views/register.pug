@@ -12,28 +12,40 @@ block content
         include partials/sidebar.pug
         div(class="col-md-9 col-sm-9")
           h1 Register
+          if error
+            div(class="alert alert-danger")
+              =error
+          if info
+            div(class="alert alert-info")
+              =info
           div(class="content-form-page")
             .row
               div(class="col-md-7 col-sm-7")
-                form(class="form-horizontal form-without-legend",role="form")
+                form(class="form-horizontal form-without-legend",role="form",action="/register",method="post")
                   fieldset
                       .form-group
                         label(for="username",class="col-lg-4 control-label") User Name
                           span(class="require") *
                         div(class="col-lg-8")
-                          input(type="text",class="form-control",id="username")
+                          input(type="text",name="username",class="form-control",id="username")
+                  fieldset
+                      .form-group
+                        label(for="email",class="col-lg-4 control-label") Email
+                          span(class="require") *
+                        div(class="col-lg-8")
+                          input(type="text",name="email",class="form-control",id="email")
                   fieldset
                       .form-group
                         label(for="password",class="col-lg-4 control-label") Password
                           span(class="require") *
                         div(class="col-lg-8")
-                          input(type="password",class="form-control",id="password")
+                          input(type="password",class="form-control",id="password",name="password")
                   fieldset
                       .form-group
                         label(for="confirm-password",class="col-lg-4 control-label") Confirm Password
                           span(class="require") *
                         div(class="col-lg-8")
-                          input(type="password",class="form-control",id="confirm-password")
+                          input(type="password",class="form-control",id="confirm-password",name="password")
                   .row
                     div(class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20")
                       button(type="submit",class="btn btn-primary") Signup

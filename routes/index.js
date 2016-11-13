@@ -3,6 +3,7 @@ var router = express.Router();
 var constants = require('../constants.js');
 var userMenu = require('../usermenu.js');
 
+var authCtrl = require('../app/authorization/controllers/AuthController');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -36,6 +37,17 @@ var menu = userMenu.get(false);
                       ,breadcrumb: breadcrumb
                       ,menu: menu
                       });
+});
+
+
+router.post('/login', authCtrl.localLogin);
+
+router.post('/register', authCtrl.localSignup);
+
+
+router.post('/test', function(req, res, next) {
+    var result = authCtrl.lockUnlockUser();
+    res.json(result);
 });
 
 

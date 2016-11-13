@@ -1,3 +1,3 @@
 module.exports = {
-	db: 'mongodb://localhost/rescueu_prod'
+	db: 'mongodb://localhost/waiter'
 }
