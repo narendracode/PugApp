@@ -24,6 +24,12 @@ block content
                 form(class="form-horizontal form-without-legend",role="form",action="/register",method="post")
                   fieldset
                       .form-group
+                        label(for="name",class="col-lg-4 control-label")  Name
+                          span(class="require") *
+                        div(class="col-lg-8")
+                          input(type="text",name="name",class="form-control",id="name")
+                  fieldset
+                      .form-group
                         label(for="username",class="col-lg-4 control-label") User Name
                           span(class="require") *
                         div(class="col-lg-8")
@@ -45,7 +51,7 @@ block content
                         label(for="confirm-password",class="col-lg-4 control-label") Confirm Password
                           span(class="require") *
                         div(class="col-lg-8")
-                          input(type="password",class="form-control",id="confirm-password",name="password")
+                          input(type="password",class="form-control",id="confirm-password",name="c-password")
                   .row
                     div(class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20")
                       button(type="submit",class="btn btn-primary") Signup

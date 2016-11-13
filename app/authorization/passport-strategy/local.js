@@ -8,22 +8,26 @@ exports.signupStrategy = new LocalStrategy({
         passReqToCallback : true 
     },
     function(req, email, password, done) {
+        console.log('email: '+email+' ,password:'+password+' ,username:'+req.body.username)
         process.nextTick(function() {
-        	if(emailValidator.validate(email)===false){
-        		return done(null, 
-        			{
-                    	type : false
-                    	,data: {
-                    		 msg:'Please enter a valid email address.'
-                    		,user:{}
-                    	}	
-                   });
-        	}
-            var name = req.body.name;
+        var name = req.body.username;
+
+        if(emailValidator.validate(email)===false){
+             return done(null, {
+                                        type : false
+                                        ,data: {
+                                            type:false
+                                            ,msg:'Please enter valid email address.'
+                                            ,user:{}
+                                        }   
+                                    });  
+        }
+
 	    User.findOne({ 'local.email' :  email }, function(err, user) {
                 if (err){
-		              return done(err);
+		              return done(null,err);
 		        }
+
                 if (user) {
                     return done(null, {
                     					type : false
@@ -54,11 +58,8 @@ exports.signupStrategy = new LocalStrategy({
                         return done(null,{
                         			type: true
                         			,data: {
-                        				msg: {}
+                        				msg: 'Your account has been created successfully, please wait for administrator to unlock it.'
                         				,user: {
-                        					name: user.name
-                        					,role: user.role
-                        					,email: user.local.email
                         				}
                         			}
                        			}
@@ -78,15 +79,13 @@ exports.loginStrategy = new LocalStrategy({
         passReqToCallback : true 
     },
     function(req, email, password, done) {
-        console.log(" error in login Strategy 1");
+        console.log('Email: '+email);
+        console.log('password:'+password);
         process.nextTick(function() {
-            console.log(" error in login Strategy 2");
             var mUser = new User();
-            console.log(" error in login Strategy 3");
             User.findOne({'local.email': email}, function(err, user) {
                 if (err){
-                console.log(" error in login Strategy 4");
-                     return done({
+                     return done(null,{
                     				type : false
                     				,data: {
                     		 			msg:'Internal Server problem occured.'
@@ -95,8 +94,7 @@ exports.loginStrategy = new LocalStrategy({
                    				});
                 }
                 if (!user || !user.validPassword(password)) {
-            console.log(" error in login Strategy 5");
-                      return done(
+                      return done(null,
                      			{
                     				type : false
                     				,data: {
@@ -105,19 +103,17 @@ exports.loginStrategy = new LocalStrategy({
                     				}	
                    				});
                 }
-                if(user.status === 'locked'){
-    console.log(" error in login Strategy 6");
-                	  return done(
-                     			{
-                    				type : false
-                    				,data: {
-                    		 			msg:'Your accout is locked, please ask administrator to unlock it.'
-                    					,user:{}
-                    				}	
-                   				});
+                if (user.status === 'locked') {
+                      return done(null,
+                                {
+                                    type : false
+                                    ,data: {
+                                        msg:'Your account is locked, please wait for administrator to unlock it.'
+                                        ,user:{}
+                                    }   
+                                });
                 }
-        console.log(" error in login Strategy 7");
-                 return done({
+                 return done(null,{
                         			type: true
                         			,data: {
                         				msg: {}

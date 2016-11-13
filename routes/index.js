@@ -11,9 +11,8 @@ router.get('/', function(req, res, next) {
   //res.cookie('cookieName', 'cookieValue')
 var menu = userMenu.get(false);
     var breadcrumb =  [
-                                     { page: 'Home',link: "/"}
-                                     
-                    ];
+                                     { page: 'Home',link: "/"}         
+                      ];
   res.clearCookie('cookieName');
   res.render('index', { 
                       title: 'Express'
