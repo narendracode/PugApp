@@ -7,13 +7,28 @@ var authCtrl = require('../app/authorization/controllers/AuthController');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	//console.log("Cookies : "+JSON.stringify(req.cookies));
-  //res.cookie('cookieName', 'cookieValue')
+    if(req.signedCookies.lt){
+   //user session found.
+    var menu = userMenu.get(true);
+    var breadcrumb =  [
+                                     { page: 'Home',link: "/"}         
+                      ];
+  res.render('index', { 
+                      title: 'Express'
+                      ,user: { 
+                        loggedin: true,
+                         name:req.signedCookies.lt.name,
+                         email:req.signedCookies.lt.email
+                      }
+                      ,role:req.signedCookies.lt.role 
+                      ,breadcrumb: breadcrumb
+                      ,menu: menu
+  });
+  }
 var menu = userMenu.get(false);
     var breadcrumb =  [
                                      { page: 'Home',link: "/"}         
                       ];
-  res.clearCookie('cookieName');
   res.render('index', { 
                       title: 'Express'
                       ,user: { loggedin: false}
@@ -21,6 +36,10 @@ var menu = userMenu.get(false);
                       ,breadcrumb: breadcrumb
                       ,menu: menu
   });
+
+
+
+
 });
 
 router.get('/login', function(req, res, next) {
@@ -118,7 +137,7 @@ router.get('/setcookies', function(req, res) {
     maxAge: 60000,
   };
  
- var loginToken = { token: '**** Login Token'};
+ var loginToken = { lt: '**** Login Token'};
  // res.cookie(constants.get('login'), '*** token ***', cookieParams);
   res.cookie(constants.get('login'), loginToken, cookieParams);
   // OR ALTERNATIVELY 
@@ -133,7 +152,7 @@ router.get('/getcookies', function(req, res) {
   	res.end('not cookies found.')
   }
   else{
-  console.log("login : "+req.signedCookies.lt.token)
+  console.log("login : "+req.signedCookies.lt)
   res.end('/getcookies called');
   }
 

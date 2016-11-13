@@ -103,22 +103,23 @@ var menu = userMenu.get(false);
   };
  
  console.log("User login : "+JSON.stringify(user));
-  res.cookie(constants.get('login'), user.user, cookieParams);
+  res.cookie(constants.get('login'), user.data.user, cookieParams);
     var menu = userMenu.get(true);
     var breadcrumb =  [
                                      { page: 'Home',link: "/"}
                       ];
-  return res.render('index', { 
-                      title: 'Welcome'
-                      ,user: {
-                         loggedin: true,
-                          name: user.data.user.name,
-                          email: user.data.user.email
-                        }
-                      ,role:'User'
-                      ,breadcrumb: breadcrumb
-                      ,menu: menu
-                      });
+  res.redirect('/');
+  // return res.render('index', { 
+  //                     title: 'Welcome'
+  //                     ,user: {
+  //                        loggedin: true,
+  //                         name: user.data.user.name,
+  //                         email: user.data.user.email
+  //                       }
+  //                     ,role:'User'
+  //                     ,breadcrumb: breadcrumb
+  //                     ,menu: menu
+  //                     });
         }
     })(req, res, next);
 };
