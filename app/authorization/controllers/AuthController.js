@@ -52,7 +52,7 @@ exports.localLogin = function(req, res, next){
                                      { page: 'Home',link: "/"},
                                      { page: 'Login'}
                     ];
-        if (err) { 
+        if (err){
           console.log('User: '+user+'  ,info:'+info+'  ,err:'+JSON.stringify(err));
             return res.render('login', { 
                       title: 'Login'
@@ -76,26 +76,14 @@ exports.localLogin = function(req, res, next){
                       });
           }
            // return res.json(user);
-
-  const cookieParams = {
-    httpOnly: true,
-    signed: true
-  };
+          const cookieParams = {
+            httpOnly: true,
+            signed: true
+          };
  
- console.log("User login : "+JSON.stringify(user));
-  res.cookie(constants.get('login'), user.data.user, cookieParams);
-  res.redirect('/');
-  // return res.render('index', { 
-  //                     title: 'Welcome'
-  //                     ,user: {
-  //                        loggedin: true,
-  //                         name: user.data.user.name,
-  //                         email: user.data.user.email
-  //                       }
-  //                     ,role:'User'
-  //                     ,breadcrumb: breadcrumb
-  //                     ,menu: menu
-  //                     });
+          console.log("User login : "+JSON.stringify(user));
+          res.cookie(constants.get('login'), user.data.user, cookieParams);
+          res.redirect('/');
         }
     })(req, res, next);
 };

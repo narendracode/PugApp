@@ -5,11 +5,14 @@ block title
   title #{title}
 
 block content
-  include partials/hero_carousel.pug
-  include partials/service.pug
-  include partials/quote.pug
-  .main
-    .container
-      h1 content goes here 
-  include partials/image_holder.pug
-  include partials/steps.pug
+  if user.role=='admin'
+    h1 Welcome Admin..
+  else
+    include partials/hero_carousel.pug
+    include partials/service.pug
+    include partials/quote.pug
+    .main
+      .container
+        h1 content goes here 
+    include partials/image_holder.pug
+    include partials/steps.pug
