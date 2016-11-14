@@ -11,7 +11,6 @@ module.exports = function(passport) {
     });
 
     passport.use('local-signup', local.signupStrategy);
-    console.log('local-signup is registered');
+
     passport.use('local-login', local.loginStrategy);
-    console.log('local-login is registered');
 }

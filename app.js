@@ -12,6 +12,10 @@ var passport = require('passport');
 var secretKey = 'foobarbaz12345';
 var app = express();
 
+
+var constants = require('./constants.js');
+var userMenu = require('./usermenu.js');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -30,6 +34,28 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
     next();
+});
+
+
+app.use(function(req, res, next) {
+  console.log('Middleware is called...');
+  if(req.signedCookies.lt){
+        var user = {
+          loggedin: true,
+          name:req.signedCookies.lt.name,
+          email:req.signedCookies.lt.email,
+          role:req.signedCookies.lt.role
+    };
+    req.user = user;
+    req.menu = userMenu.get(true);
+  }else{
+    req.menu = userMenu.get(false);
+    req.user = {
+      loggedin: false,
+      role:'Guest'
+    };
+  }
+  next();
 });
 
 
@@ -58,6 +84,6 @@ require('./app/authorization/passport')(passport); //settting up passport config
 
 
 require('./config/routes')(app);
-//require('./config/express')(app);
+require('./config/express')(app);
 
 module.exports = app;

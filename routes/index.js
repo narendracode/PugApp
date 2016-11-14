@@ -7,39 +7,16 @@ var authCtrl = require('../app/authorization/controllers/AuthController');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    if(req.signedCookies.lt){
-   //user session found.
-    var menu = userMenu.get(true);
     var breadcrumb =  [
                                      { page: 'Home',link: "/"}         
                       ];
+                      
   res.render('index', { 
                       title: 'Express'
-                      ,user: { 
-                        loggedin: true,
-                         name:req.signedCookies.lt.name,
-                         email:req.signedCookies.lt.email
-                      }
-                      ,role:req.signedCookies.lt.role 
+                      ,user: req.user
                       ,breadcrumb: breadcrumb
-                      ,menu: menu
-  });
-  }
-var menu = userMenu.get(false);
-    var breadcrumb =  [
-                                     { page: 'Home',link: "/"}         
-                      ];
-  res.render('index', { 
-                      title: 'Express'
-                      ,user: { loggedin: false}
-                      ,role:'User' 
-                      ,breadcrumb: breadcrumb
-                      ,menu: menu
-  });
-
-
-
-
+                      ,menu: req.menu
+                      });
 });
 
 router.get('/login', function(req, res, next) {
@@ -49,11 +26,10 @@ var menu = userMenu.get(false);
                                      { page: 'Login'}
                     ];
   res.render('login', { 
-                      title: 'Express'
-                      ,user: { loggedin: false}
-                      ,role:'User' 
+                      title: 'Login'
+                      ,user: req.user
                       ,breadcrumb: breadcrumb
-                      ,menu: menu
+                      ,menu: req.menu
                       });
 });
 
@@ -77,10 +53,9 @@ router.get('/faq', function(req, res, next) {
                     ];
   res.render('faq', { 
                       title: 'Express'
-                      ,user: { loggedin: false}
-                      ,role:'User' 
+                      ,user: req.user
                       ,breadcrumb: breadcrumb
-                      ,menu: menu
+                      ,menu: req.menu
                       });
 });
 
@@ -92,11 +67,10 @@ router.get('/forgot', function(req, res, next) {
                                      { page: 'Forgot Your Password??'}
                     ];
   res.render('forgot', { 
-                      title: 'Express'
-                      ,user: { loggedin: false}
-                      ,role:'User' 
+                      title: 'Forgot Password'
+                      ,user: req.user
                       ,breadcrumb: breadcrumb
-                      ,menu: menu
+                      ,menu: req.menu
                       });
 });
 
@@ -109,11 +83,10 @@ router.get('/register', function(req, res, next) {
                                      { page: 'Register'}
                     ];
   res.render('register', { 
-                          title: 'Express'
-                          ,user: { loggedin: false}
-                          ,role:'User' 
+                          title: 'Register'
+                          ,user: req.user
                           ,breadcrumb: breadcrumb
-                          ,menu: menu
+                          ,menu: req.menu
                         });
 });
 
@@ -121,9 +94,8 @@ router.get('/register', function(req, res, next) {
 router.get('/admin', function(req, res, next) {
   var menu = userMenu.get(false);
   res.render('index', { 
-                          title: 'Express'
-                          ,user: { loggedin: false}
-                          ,role:'User' 
+                           title: 'Express'
+                          ,user: req.user
                           ,breadcrumb: breadcrumb
                           ,menu: menu
                         });

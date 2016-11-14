@@ -7,50 +7,37 @@ var constants = require('../../../constants.js');
 exports.localSignup =  function(req, res, next){
     passport.authenticate('local-signup',function(err, user, info){
       console.log("err: "+err+' ,user:'+user+'  ,info:'+JSON.stringify(info));
-      var menu = userMenu.get(false);
-        if (err) { 
-            //return res.json({type:false,data: 'error occured '+ err}); 
-
-            var breadcrumb =  [
+                  var breadcrumb =  [
                                      { page: 'Home',link: "/"},
                                      { page: 'Register'}
                     ];
+        if (err) { 
+            //return res.json({type:false,data: 'error occured '+ err}); 
           console.log('User: '+user+'  ,info:'+info+'  ,err:'+JSON.stringify(err));
             return res.render('register', { 
                       title: 'Register'
-                      ,user: { loggedin: false}
-                      ,role:'User' 
+                      ,user: req.user
                       ,error:'Internal server error encountered.'
                       ,breadcrumb: breadcrumb
-                      ,menu: menu
+                      ,menu: req.menu
                       });
         }
         if(user){
             if(user.type==false){
-              var breadcrumb =  [
-                                     { page: 'Home',link: "/"},
-                                     { page: 'Register'}
-                    ];
               return res.render('register', { 
                       title: 'Register'
-                      ,user: { loggedin: false}
-                      ,role:'User' 
+                      ,user: req.user
                       ,error: user.data.msg
                       ,breadcrumb: breadcrumb
-                      ,menu: menu
+                      ,menu: req.menu
                       });
             }
-              var breadcrumb =  [
-                                     { page: 'Home',link: "/"},
-                                     { page: 'Register'}
-                    ];
               return res.render('register', { 
                       title: 'Register'
-                      ,user: { loggedin: false}
-                      ,role:'User' 
+                      ,user: req.user
                       ,info: user.data.msg
                       ,breadcrumb: breadcrumb
-                      ,menu: menu
+                      ,menu: req.menu
                       });
           }
 
@@ -61,14 +48,11 @@ exports.localSignup =  function(req, res, next){
 
 exports.localLogin = function(req, res, next){
     passport.authenticate('local-login',function(err, user, info){
-
-
-var menu = userMenu.get(false);
-        if (err) { 
-            var breadcrumb =  [
+                  var breadcrumb =  [
                                      { page: 'Home',link: "/"},
                                      { page: 'Login'}
                     ];
+        if (err) { 
           console.log('User: '+user+'  ,info:'+info+'  ,err:'+JSON.stringify(err));
             return res.render('login', { 
                       title: 'Login'
@@ -76,23 +60,19 @@ var menu = userMenu.get(false);
                       ,role:'User' 
                       ,error:'Internal server error encountered.'
                       ,breadcrumb: breadcrumb
-                      ,menu: menu
+                      ,menu: req.menu
                       });
 
         }
         if(user){
           if(user.type==false){
-  var breadcrumb =  [
-                                     { page: 'Home',link: "/"},
-                                     { page: 'Login'}
-                    ];
             return res.render('login', { 
                       title: 'Login'
                       ,user: { loggedin: false}
                       ,role:'User' 
                       ,error: user.data.msg
                       ,breadcrumb: breadcrumb
-                      ,menu: menu
+                      ,menu: req.menu
                       });
           }
            // return res.json(user);
@@ -104,10 +84,6 @@ var menu = userMenu.get(false);
  
  console.log("User login : "+JSON.stringify(user));
   res.cookie(constants.get('login'), user.data.user, cookieParams);
-    var menu = userMenu.get(true);
-    var breadcrumb =  [
-                                     { page: 'Home',link: "/"}
-                      ];
   res.redirect('/');
   // return res.render('index', { 
   //                     title: 'Welcome'
@@ -127,21 +103,7 @@ var menu = userMenu.get(false);
 
 exports.logout = function(req,res,next){
   res.clearCookie(constants.get('login'));
-  var menu = userMenu.get(false);
-        
-            var breadcrumb =  [
-                                     { page: 'Home',link: "/"},
-                                     { page: 'Login'}
-                    ];
-         
-            return res.render('login', { 
-                      title: 'Login'
-                      ,user: { loggedin: false}
-                      ,role:'User' 
-                      ,info:'You are successfully logged out.'
-                      ,breadcrumb: breadcrumb
-                      ,menu: menu
-                      });
+  res.redirect('/login');
 };
 
 exports.lockUnlockUser = function(req,res,next){
