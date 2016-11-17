@@ -4,6 +4,43 @@ var emailValidator = require("email-validator");
 var userMenu = require('../../../usermenu.js');
 var constants = require('../../../constants.js');
 
+
+exports.index = function(req,res,next){
+    var breadcrumb =  [
+                                     { page: 'Home',link: "/"}         
+                      ];
+    var result =  {
+                      title: 'Index'
+                      ,user: req.user
+                      ,breadcrumb: breadcrumb
+                      ,menu: req.menu
+                  };
+          if(req.user.role=='admin'){
+            User
+              .find({
+                'local.email' : {
+                  $ne: req.user.email
+                },
+                role : {
+                  $ne : 'admin'
+                }
+              })
+              .select({username:1,status:1,'local.email': 1,role:1}).exec(function(err,users){
+               if (err){
+                      result.type = false;
+                      result.msg = 'Internal Server problem occured.';
+                      result.users = [];
+                }
+                result.type = true;
+                result.msg = '';
+                result.users = users;
+              res.render('index', result);
+            });
+          }else{
+            res.render('index', result);
+          }
+};
+
 exports.localSignup =  function(req, res, next){
     passport.authenticate('local-signup',function(err, user, info){
       console.log("err: "+err+' ,user:'+user+'  ,info:'+JSON.stringify(info));
@@ -40,9 +77,6 @@ exports.localSignup =  function(req, res, next){
                       ,menu: req.menu
                       });
           }
-
-        
-            //return res.json(user);
     })(req, res, next);
 };
 
@@ -95,7 +129,24 @@ exports.logout = function(req,res,next){
 };
 
 exports.lockUnlockUser = function(req,res,next){
-	return {
-		msg:'response from lockUnlockUser'
-	};
-}
+  var email = req.body.email;
+  var action = req.body.action;
+    var result =  {
+                  };
+    if(req.user.role=='admin'){
+        User.update({'local.email' : email},{ $set: { 'status':action}},function(err,result){
+               if (err){
+                      result.type = false;
+                      result.msg = 'Internal Server problem occured.';
+                      result.users = [];
+                }
+                result.type = true;
+                result.msg = 'User status has been updated successfully.';
+        });
+    }else{
+      //user does not has permission.
+        result.type = false;
+        result.msg = 'You do not have permission.';
+    }
+    res.json(result);
+};

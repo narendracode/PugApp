@@ -6,7 +6,35 @@ block title
 
 block content
   if user.role=='admin'
-    h1 Welcome Admin..
+    .main
+      .container
+        div(class="row margin-bottom-40")
+          div(class="col-md-12")
+            h1 Users
+            div(class="content-page")
+              form(action="#",class="content-search-view2")
+                div(class="input-group")
+                  input(type="text",class="form-control",placeholder="Search...")
+                  span(class="input-group-btn")
+                    button(type="submit",class="btn btn-primary") Search
+              if type==true
+                if users.length!=0
+                  each user in users
+                    div(class="search-result-item")
+                      h4
+                        =user.username
+                      h4
+                        =user.role
+                      if user.status=='locked'
+                        button(type="button",class="btn btn-success btn-xs") Unlock
+                      else
+                        button(type="button",class="btn btn-danger btn-xs") Lock
+                else
+                  h3 No records found.
+              else
+                h3
+                  =msg
+        h1 welcome admin
   else
     include partials/hero_carousel.pug
     include partials/service.pug

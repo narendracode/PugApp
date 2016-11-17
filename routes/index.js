@@ -6,18 +6,9 @@ var userMenu = require('../usermenu.js');
 var authCtrl = require('../app/authorization/controllers/AuthController');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    var breadcrumb =  [
-                                     { page: 'Home',link: "/"}         
-                      ];
-                      
-  res.render('index', { 
-                      title: 'Express'
-                      ,user: req.user
-                      ,breadcrumb: breadcrumb
-                      ,menu: req.menu
-                      });
-});
+router.get('/', authCtrl.index);
+
+router.put('/status',authCtrl.lockUnlockUser);
 
 router.get('/login', function(req, res, next) {
 var menu = userMenu.get(false);

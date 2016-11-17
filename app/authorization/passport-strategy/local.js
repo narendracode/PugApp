@@ -39,7 +39,7 @@ exports.signupStrategy = new LocalStrategy({
                     				});
                 } else {
                     var newUser  = new User();
-                    newUser.role =  'admin';
+                    newUser.role =  'user';
                     newUser.local.email = email;
                     newUser.local.name = name;
                     newUser.username = name;
