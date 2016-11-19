@@ -8,7 +8,7 @@ var authCtrl = require('../app/authorization/controllers/AuthController');
 /* GET home page. */
 router.get('/', authCtrl.index);
 
-router.put('/status',authCtrl.lockUnlockUser);
+router.post('/status',authCtrl.toggleLock);
 
 router.get('/login', function(req, res, next) {
 var menu = userMenu.get(false);

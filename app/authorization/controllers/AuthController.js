@@ -122,19 +122,23 @@ exports.localLogin = function(req, res, next){
     })(req, res, next);
 };
 
-
 exports.logout = function(req,res,next){
   res.clearCookie(constants.get('login'));
   res.redirect('/login');
 };
 
-exports.lockUnlockUser = function(req,res,next){
+exports.toggleLock = function(req,res,next){
+  console.log('Toggle Lock is called.');
   var email = req.body.email;
-  var action = req.body.action;
-    var result =  {
-                  };
+  var status = req.body.status;
+  if(status==='locked')
+    status = 'unlocked';
+  else
+    status = 'locked';
+  var result =  {
+                };
     if(req.user.role=='admin'){
-        User.update({'local.email' : email},{ $set: { 'status':action}},function(err,result){
+        User.update({'local.email' : email},{ $set: { 'status':status}},function(err,result){
                if (err){
                       result.type = false;
                       result.msg = 'Internal Server problem occured.';
@@ -142,11 +146,13 @@ exports.lockUnlockUser = function(req,res,next){
                 }
                 result.type = true;
                 result.msg = 'User status has been updated successfully.';
+                res.json(result);
         });
     }else{
       //user does not has permission.
         result.type = false;
         result.msg = 'You do not have permission.';
+        res.json(result);
     }
-    res.json(result);
+   
 };
