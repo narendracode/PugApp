@@ -80,7 +80,7 @@ exports.localSignup =  function(req, res, next){
     })(req, res, next);
 };
 
-<<<<<<< HEAD
+
 
 exports.localLogin = function(req,res,next){
   console.log(JSON.stringify(next));
@@ -91,16 +91,6 @@ exports.localLogin = function(req,res,next){
                            { page: 'Login'}
                       ];
     if(err){
-=======
-exports.localLogin = function(req, res, next){
-    passport.authenticate('local-login',function(err, user, info){
-                  var breadcrumb =  [
-                                     { page: 'Home',link: "/"},
-                                     { page: 'Login'}
-                    ];
-        if (err){
-          console.log('User: '+user+'  ,info:'+info+'  ,err:'+JSON.stringify(err));
->>>>>>> FETCH_HEAD
             return res.render('login', { 
                       title: 'Login'
                       ,user: { loggedin: false}
@@ -132,34 +122,9 @@ exports.localLogin = function(req, res, next){
               req.signedCookies.lt = user.data.user;
               return res.redirect('/');
         }
-<<<<<<< HEAD
       }
     }
   })(req,res,next);
-=======
-        if(user){
-          if(user.type==false){
-            return res.render('login', { 
-                      title: 'Login'
-                      ,user: { loggedin: false}
-                      ,role:'User' 
-                      ,error: user.data.msg
-                      ,breadcrumb: breadcrumb
-                      ,menu: req.menu
-                      });
-          }
-           // return res.json(user);
-          const cookieParams = {
-            httpOnly: true,
-            signed: true
-          };
- 
-          console.log("User login : "+JSON.stringify(user));
-          res.cookie(constants.get('login'), user.data.user, cookieParams);
-          res.redirect('/');
-        }
-    })(req, res, next);
->>>>>>> FETCH_HEAD
 };
 
 exports.logout = function(req,res,next){

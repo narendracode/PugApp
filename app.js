@@ -38,7 +38,6 @@ app.use(function(req, res, next) {
 
 
 app.use(function(req, res, next) {
-  console.log('Middleware is called...');
   if(req.signedCookies.lt){
         var user = {
           loggedin: true,
