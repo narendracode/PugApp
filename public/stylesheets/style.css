@@ -1,11 +1,75 @@
-.container {
-  padding-top: 50px;
-  padding-bottom:50px;
-  padding-left:50px;
-  padding-right:50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body {
+  position: relative; /* needed if you position the pseudo-element absolutely */
 }
 
-a {
-  color: #00B7FF;
+.msg-transition-success{
+	 z-index: 1000;
+	-webkit-transition: all 3s ease; 
+	-moz-transition: all 3s ease; 
+	-o-transition: all 3s ease; 
+    transition: all 3s ease;
+    position: fixed;
+  	top: 0;
+  	right:0;
+  	margin-top:5px;
+  	margin-right: 5px;
+  	max-width: 30%;
+  	opacity: 1;
+  	display: none;
+}
+
+.msg-transition-success:hover{
+	/*background: #e74c3c;*/
+}
+
+.msg-transition-danger{
+	 z-index: 1000;
+	-webkit-transition: all 3s ease; 
+	-moz-transition: all 3s ease; 
+	-o-transition: all 3s ease; 
+    transition: all 3s ease;
+    position: fixed;
+  	top: 0;
+  	right:0;
+  	margin-top:5px;
+  	margin-right: 5px;
+  	max-width: 30%;
+  	opacity: 1;
+  	display: none;
+}
+
+.msg-transition-danger:hover{
+	background: #e74c3c;
+}
+
+.msg-transition-info{
+	z-index: 10;
+	-webkit-transition: all 3s ease; 
+	-moz-transition: all 3s ease; 
+	-o-transition: all 3s ease; 
+    transition: all 3s ease;
+}
+
+.msg-transition-info:hover{
+	background: #1abc9c;
+}
+
+
+@keyframes notification-animate-show {
+  0% {
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+.block{
+  display: block;
+}
+
+
+.animate-show{
+  animation: notification-animate-show 6s linear;
+  animation-timing-function: ease-in-out;
 }

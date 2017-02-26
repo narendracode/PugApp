@@ -5,11 +5,57 @@ block title
   title #{title}
 
 block content
-  include partials/hero_carousel.pug
-  include partials/service.pug
-  include partials/quote.pug
-  .main
-    .container
-      h1 content goes here 
-  include partials/image_holder.pug
-  include partials/steps.pug
+  if user.role=='admin'
+    .main
+      .container
+        div(class="row margin-bottom-40")
+          div(class="col-md-12")
+            h1 Users
+            div(class="content-page",id="search-content-page")
+              form(action="#",class="content-search-view2")
+                div(class="input-group")
+                  input(type="text",class="form-control",placeholder="Search...")
+                  span(class="input-group-btn")
+                    button(type="submit",class="btn btn-primary") Search
+              if type==true
+                if users.length!=0
+                  each user in users
+                    div(class="search-result-item")
+                      h4
+                        =user.username
+                      //-h4
+                      //- =user.role
+                      //-h4
+                      //-  =user.status
+                      h4 
+                        =user.local.email
+                      if user.status=='locked'
+                        button(type="button",class="btn btn-success btn-xs toggle-status-button",data-email=user.local.email,data-status=user.status) Unlock
+                      else
+                        button(type="button",class="btn btn-danger btn-xs toggle-status-button",data-email=user.local.email,data-status=user.status) Lock
+                else
+                  h3 No records found.
+              else
+                h3
+                  =msg
+        h1 welcome admin
+  else
+    include partials/hero_carousel.pug
+    include partials/service.pug
+    include partials/quote.pug
+    .main
+      .container
+        h1 content goes here 
+    include partials/image_holder.pug
+    include partials/steps.pug
+
+  .row
+    div(class="col-md-1")           
+      div(class="alert alert-danger alert-dismissible msg-transition-danger",role="alert")
+        button(type="button",class="close",data-dismiss="alert",aria-label="Close")
+          span(aria-hidden="true") &times;
+        span some message to display 
+      div(class="alert alert-success alert-dismissible msg-transition-success",role="alert")
+        button(type="button",class="close",data-dismiss="alert",aria-label="Close")
+          span(aria-hidden="true") &times;
+        span some message to display 

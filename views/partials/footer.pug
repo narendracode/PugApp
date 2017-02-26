@@ -17,6 +17,7 @@ script(src="/plugins/fancybox/source/jquery.fancybox.pack.js",type="text/javascr
 script(src="/plugins/owl.carousel/owl.carousel.min.js",type="text/javascript")
 script(src="/corporate/scripts/layout.js",type="text/javascript")
 script(src="/pages/scripts/bs-carousel.js",type="text/javascript")
+script(src="/javascripts/App.js",type="text/javascript")
 script.
         jQuery(document).ready(function() {
             Layout.init();    
@@ -24,4 +25,5 @@ script.
             Layout.initTwitter();
             //Layout.initFixHeaderWithPreHeader(); /* Switch On Header Fixing (only if you have pre-header) */
             //Layout.initNavScrolling(); 
+            App.init();
         });
